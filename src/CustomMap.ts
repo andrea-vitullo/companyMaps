@@ -8,6 +8,7 @@ interface Mappable {
         lat: number;
         lng: number;
     }
+    markerContent(): string; 
 }
 
 export class CustomMap {
@@ -26,19 +27,27 @@ export class CustomMap {
                 lat: 0,
                 lng: 0
             },
-            mapId: "Your ID"
+            mapId: "Your Map ID"
         });
     }
 
     async addMarker(mappable: Mappable): Promise<void> {
         const { AdvancedMarkerElement } = await google.maps.importLibrary("marker") as google.maps.MarkerLibrary;
 
-        new AdvancedMarkerElement({
+        const marker = new AdvancedMarkerElement({
             map: this.map,
             position: {
                 lat: mappable.location.lat,
                 lng: mappable.location.lng
             }
+        });
+
+        marker.addListener("click", () => {
+            const infoWindow = new google.maps.InfoWindow({
+                content: mappable.markerContent()
+            });
+
+            infoWindow.open(this.map, marker)
         });
     }
 }
