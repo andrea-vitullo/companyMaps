@@ -1,19 +1,14 @@
 /// <reference types="@types/google.maps" />
 
+import { CustomMap } from './CustomMap';
 import { User } from './user';
 import { Company } from './Company';
 
-let map: google.maps.Map;
-async function initMap(): Promise<void> {
-    const { Map } = await google.maps.importLibrary("maps") as google.maps.MapsLibrary;
+const user = new User();
+const company = new Company();
+const customMap = new CustomMap();
 
-    map = new Map(document.getElementById("map") as HTMLElement, {
-        zoom: 1,
-        center: {
-            lat: 0,
-            lng: 0
-        }
-    });
-}
+console.log(user.location)
 
-initMap();
+customMap.addMarker(user)
+customMap.addMarker(company)
