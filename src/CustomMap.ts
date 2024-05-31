@@ -3,7 +3,7 @@
 import { User } from './user';
 import { Company } from './Company';
 
-interface Mappable {
+export interface Mappable {
     location: {
         lat: number;
         lng: number;
@@ -27,7 +27,7 @@ export class CustomMap {
                 lat: 0,
                 lng: 0
             },
-            mapId: "Your Map ID"
+            mapId: "Your Map ID!"
         });
     }
 
